@@ -12,14 +12,14 @@ import model.Order;
 import model.Request;
 import model.Response;
 
-public class Client {
+public class ClientController {
     private Socket conn = null;
 	private ObjectInputStream input;
 	private ObjectOutputStream output;
 	private Response response;
 	private String clientID = generateClientID();
 	
-	public Client() {
+	public ClientController() {
         connectToServer();
 
 		try {
@@ -67,4 +67,7 @@ public class Client {
         } catch (Exception e) { e.printStackTrace(); } 
     }
 
+    public String getClientID() {
+        return clientID;
+    }
 }

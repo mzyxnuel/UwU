@@ -4,11 +4,10 @@ import java.io.Serializable;
 
 public class Request implements Serializable {
     private Method method;
-    private String id;
+    private String clientID;
     private Order order;
     
-    
-    public Request(Method method, String id, Order order) {
+    public Request(Method method, String clientID, Order order) {
         this.method = method;
         this.order = order;
     }
@@ -21,8 +20,8 @@ public class Request implements Serializable {
         return method;
     }
 
-    public String getId() {
-        return id;
+    public String getClientID() {
+        return clientID;
     }
 
     public Order getOrder() {

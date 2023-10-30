@@ -1,9 +1,6 @@
-import controller.server.Server;
+import controller.server.ServerController;
 import view.server.ServerFrame;
 
 public class ServerMain {
-    public static void main(String[] args) { 
-        new Server();
-        new ServerFrame();
-    }
+    public static void main(String[] args) { new ServerFrame(new ServerController()); }
 } 

@@ -18,15 +18,19 @@ public class SideWorker extends Thread {
 	private ObjectOutputStream output;
 
     public SideWorker(Socket connectionRequest, Orders orders) {
-		try {
-            this.orders = orders;
-			conn = connectionRequest;
+        this.orders = orders;
+        acceptConnection(connectionRequest);
+	}
+
+    private void acceptConnection(Socket conn) {
+        try {
+			this.conn = conn;
 			System.out.println("[server]: connection requested from: "+ conn.getInetAddress().toString() + ":" + conn.getPort());
 			input = new ObjectInputStream(conn.getInputStream());
 			output = new ObjectOutputStream(conn.getOutputStream());
 			start();
 		} catch (IOException e) { e.printStackTrace(); }
-	}
+    }
 
     public void run() { 
         try {
@@ -34,8 +38,21 @@ public class SideWorker extends Thread {
 
             while(request.getMethod() != Method.END) {
                 request = (Request) input.readObject();
+                System.out.println("[server]: new request: " + request.getMethod());
 
-                //LOGICA
+                switch (request.getMethod()) {
+                    case ADD:
+                        orders.add(request);
+                        break;
+                    case UPDATE:
+                        orders.update(request);
+                        break;
+                    case DELETE:
+                        orders.delete(request);
+                        break;
+                
+                    default: throw new Exception();
+                }
 
                 output.writeObject(new Response(Method.OK, request.getMethod().toString()));
             }
@@ -47,6 +64,8 @@ public class SideWorker extends Thread {
             System.out.println("[server]: client unexpectedly disconnected"); 
         } catch (ClassNotFoundException e) {
             System.out.println("[server]: corrupted class readed from client!");
-        } 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }    
 }
