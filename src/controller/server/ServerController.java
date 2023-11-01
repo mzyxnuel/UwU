@@ -6,12 +6,12 @@ import java.net.Socket;
 
 import model.Orders;
 
-public class Server extends Thread {
+public class ServerController extends Thread {
     private ServerSocket server; 
 	private Socket request;
     private Orders orders = new Orders();
 	
-	public Server() { 
+	public ServerController() { 
 		try { 
 			server = new ServerSocket(8080, 50); 
 			System.out.println("[server]: server on!"); 
@@ -27,4 +27,8 @@ public class Server extends Thread {
 			} 
 		} catch (IOException e) { e.printStackTrace(); } 
 	}
+
+    public Orders getOrders() {
+        return orders;
+    }
 }

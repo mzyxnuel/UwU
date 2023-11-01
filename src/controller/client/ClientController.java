@@ -8,25 +8,24 @@ import java.net.Socket;
 import java.util.UUID;
 
 import model.Method;
-import model.Order;
 import model.Request;
 import model.Response;
 
-public class Client {
+public class ClientController extends Thread {
     private Socket conn = null;
 	private ObjectInputStream input;
 	private ObjectOutputStream output;
 	private Response response;
 	private String clientID = generateClientID();
 	
-	public Client() {
+	public ClientController() {
         connectToServer();
-
 		try {
             output = new ObjectOutputStream(conn.getOutputStream());
             input = new ObjectInputStream(conn.getInputStream());
             response = new Response(null);
         } catch (Exception e) { e.printStackTrace(); } 
+        start();
 	}
 
     private void connectToServer() {
@@ -47,24 +46,32 @@ public class Client {
 		}
     }
 
-	private String generateClientID() {
-        return UUID.randomUUID().toString();
+    public void run() { 
+		try { 
+			do {
+                response = (Response) input.readObject();
+                System.out.println(response.getMessage());
+			} while (response.getMethod() != Method.END);
+
+            System.out.println("[client]: connection closed...");
+            input.close();
+            output.close();
+            conn.close();
+            System.exit(0);
+		} catch (Exception e) { e.printStackTrace(); } 
 	}
 
 	public void sendRequest(Request request) {
         try {
             output.writeObject(request);
-            while (response.getMethod() != Method.END) {
-                response = (Response) input.readObject();
-                System.out.println(response.getMessage());
-            };
-            System.out.println("[client]: connection closed...");
-            input.close();
-            output.close();
-            conn.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) { e.printStackTrace(); } 
     }
 
+    private String generateClientID() {
+        return UUID.randomUUID().toString();
+	}
+
+    public String getClientID() {
+        return clientID;
+    }
 }
