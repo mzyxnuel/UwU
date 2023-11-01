@@ -12,7 +12,7 @@ public class Orders extends HashMap<String, Order> {
     }   
 
     public void delete(Request request) {
-        this.remove(request.getClientID());
+        remove(request.getClientID());
     }
 
     public Orders getAll() {
