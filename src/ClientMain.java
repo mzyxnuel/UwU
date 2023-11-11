@@ -1,4 +1,4 @@
-import controller.client.ClientController;
+import control.client.ClientController;
 import view.client.ClientFrame;
 
 public class ClientMain {
