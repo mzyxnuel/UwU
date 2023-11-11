@@ -1,4 +1,4 @@
-package controller.client;
+package control.client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
