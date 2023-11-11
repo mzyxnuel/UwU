@@ -1,4 +1,4 @@
-import control.server.ServerController;
+import controller.server.ServerController;
 import view.server.ServerFrame;
 
 public class ServerMain {
