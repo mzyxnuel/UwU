@@ -2,6 +2,8 @@ package view.client;
 	
 import javafx.scene.input.MouseEvent;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -137,18 +139,22 @@ public class Main extends Application {
     
     @FXML
     private void immagineCliccata(MouseEvent event) {
-      ImageView image = (ImageView) event.getSource();
-      String imageName = image.getImage().getUrl();
-      Order order = new Order();
-      order.setName(imageName);
-      if(carrello == false) {
-          client.sendRequest(new Request(Method.ADD, clientID, order));
-          carrello = true;
-      }
-      else {
-          client.sendRequest(new Request(Method.UPDATE, clientID, order));
-      }
-      cart.add(image);
+     ImageView image = (ImageView) event.getSource();
+     String imageUrl = image.getImage().getUrl();
+     String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
+     String fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
+     Order order = new Order();
+     
+     	order.setName(fileNameWithoutExtension);
+     	
+	     if(carrello == false) {
+	      client.sendRequest(new Request(Method.ADD, clientID, order));
+	      carrello = true;
+	     }
+	     else {
+	      client.sendRequest(new Request(Method.UPDATE, clientID, order));
+	     }
+	     	cart.add(image);
     }
     
     @FXML
