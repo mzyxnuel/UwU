@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Response implements Serializable{
+public class Response implements Serializable {
     private Method method;
     private String message;
     

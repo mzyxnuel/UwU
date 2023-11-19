@@ -27,8 +27,4 @@ public class ServerController extends Thread {
 			} 
 		} catch (IOException e) { e.printStackTrace(); } 
 	}
-
-    public Orders getOrders() {
-        return orders;
-    }
 }
