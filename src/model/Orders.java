@@ -8,14 +8,10 @@ public class Orders extends HashMap<String, Order> {
     }
 
     public void update(Request request) {
-        //merge o replace
+        replace(request.getClientID(), request.getOrder());
     }   
 
     public void delete(Request request) {
         remove(request.getClientID());
-    }
-
-    public Orders getAll() {
-        return this;
     }
 }
