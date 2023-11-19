@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import control.client.ClientController;
 import model.Method;
@@ -31,6 +33,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.shape.Rectangle;
 
 //COME MANDARE LE RICHIESTE: client.sendRequest(new Request(Method.ADD, clientID, new Order()));
 public class Main extends Application {
@@ -103,6 +106,7 @@ public class Main extends Application {
     private List<ImageView> primiImages;
     private List<ImageView> bevande;
     private List<ImageView> cart = new ArrayList<>();
+    private Map<String, Integer> orderCount = new HashMap<>();
     private boolean carrello = false;
 	
 	@Override
@@ -145,16 +149,18 @@ public class Main extends Application {
      String fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
      Order order = new Order();
      
-     	order.setName(fileNameWithoutExtension);
-     	
+	     order.setName(fileNameWithoutExtension);
+	     
 	     if(carrello == false) {
-	      client.sendRequest(new Request(Method.ADD, clientID, order));
-	      carrello = true;
+	     client.sendRequest(new Request(Method.ADD, clientID, order));
+	     carrello = true;
 	     }
-	     else {
-	      client.sendRequest(new Request(Method.UPDATE, clientID, order));
-	     }
-	     	cart.add(image);
+	     	else {
+		     if(!cart.contains(image)) {
+		    	 client.sendRequest(new Request(Method.UPDATE, clientID, order));
+		     }
+		    }
+     cart.add(image);
     }
     
     @FXML
@@ -179,8 +185,14 @@ public class Main extends Application {
     }
     @FXML
     private void onCartButtonClick() {
-
+    	
+    	List<ImageView> images = new ArrayList<>();
+    	
+    	for (ImageView image : images) {
+ 	       image.setOnMouseClicked(null);
+ 	   }
         	changeImages(cart);
+        	
     
     }
 
