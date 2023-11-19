@@ -1,8 +1,10 @@
 package view.client;
 	
+import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import control.client.ClientController;
@@ -12,19 +14,20 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.css.Styleable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Order;
+import model.Product;
 import model.Request;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 
 //COME MANDARE LE RICHIESTE: client.sendRequest(new Request(Method.ADD, clientID, new Order()));
@@ -97,9 +100,8 @@ public class Main extends Application {
     private List<ImageView> antipastiImages;
     private List<ImageView> primiImages;
     private List<ImageView> bevande;
-    private List<ImageView> cart;
-    
-    private boolean carrello;
+    private List<ImageView> cart = new ArrayList<>();
+    private boolean carrello = false;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -129,22 +131,26 @@ public class Main extends Application {
         antipastiImages = Arrays.asList(baozi, edamame, gyoza, tartare, tempura, shrimp);
         primiImages = Arrays.asList(frice, maki, nigiri, noodles, uramaki, temaki, teriyaki);
         bevande = Arrays.asList(acqua, fanta, coca, sprite);
-        cart = Arrays.asList();
+        cart = new ArrayList<>();
         changeImages(antipastiImages);
     }
     
     @FXML
-    private void aggiungiCarrello() {
-    	if(carrello == false) {
-			client.sendRequest(new Request(Method.ADD, clientID, new Order()));
-			carrello = true;
-		} else {
-			client.sendRequest(new Request(Method.UPDATE, clientID, new Order()));
-		}
-    	
+    private void immagineCliccata(MouseEvent event) {
+      ImageView image = (ImageView) event.getSource();
+      String imageName = image.getImage().getUrl();
+      Order order = new Order();
+      order.setName(imageName);
+      if(carrello == false) {
+          client.sendRequest(new Request(Method.ADD, clientID, order));
+          carrello = true;
+      }
+      else {
+          client.sendRequest(new Request(Method.UPDATE, clientID, order));
+      }
+      cart.add(image);
     }
- 
-
+    
     @FXML
     private void onAntipastiButtonClick() {
 
