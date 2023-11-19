@@ -139,6 +139,8 @@ public class Main extends Application {
         bevande = Arrays.asList(acqua, fanta, coca, sprite);
         cart = new ArrayList<>();
         changeImages(antipastiImages);
+        
+       
     }
     
     @FXML

@@ -73,7 +73,7 @@
             </AnchorPane>
          </left>
          <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="IdMenuPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fx:id="baozi" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
