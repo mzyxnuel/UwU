@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="843.0" style="-fx-background-color: #211f21;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="843.0" style="-fx-background-color: #211f21;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.client.Main">
    <children>
       <BorderPane layoutX="4.0" prefHeight="532.0" prefWidth="835.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -18,7 +18,7 @@
                <children>
                   <ImageView fitHeight="44.0" fitWidth="71.0" layoutX="25.0" layoutY="29.0" onMouseClicked="#onMenuButtonClick" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/menu.png" />
+                        <Image url="@../../../resources/menu.png" />
                      </image>
                   </ImageView>
                   <Pane layoutX="-14.0" prefHeight="29.0" prefWidth="853.0" style="-fx-background-color: #96180f;" AnchorPane.leftAnchor="-14.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0" />
@@ -49,12 +49,12 @@
                               <Font name="Baskerville Old Face" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="Bevande">
+                        <Button mnemonicParsing="false" onAction="#onBevandeButtonClick" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="Bevande">
                            <font>
                               <Font name="Baskerville Old Face" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="Carrello">
+                        <Button mnemonicParsing="false" onAction="#onCartButtonClick" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="Carrello">
                            <font>
                               <Font name="Baskerville Old Face" size="20.0" />
                            </font>
@@ -73,71 +73,91 @@
             </AnchorPane>
          </left>
          <center>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="IdMenuPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="baozi" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="baozi" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/sushi/baozi.png" />
+                        <Image url="@../../../resources/sushi/baozi.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="edamame" fitHeight="150.0" fitWidth="200.0" layoutX="217.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="edamame" fitHeight="150.0" fitWidth="200.0" layoutX="217.0" layoutY="8.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/sushi/edamame.png" />
+                        <Image url="@../../../resources/sushi/edamame.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="tartare" fitHeight="150.0" fitWidth="200.0" layoutX="467.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="tartare" fitHeight="150.0" fitWidth="200.0" layoutX="467.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/sushi/tartare.png" />
+                        <Image url="@../../../resources/sushi/tartare.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="tempura" fitHeight="150.0" fitWidth="200.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="tempura" fitHeight="150.0" fitWidth="200.0" layoutY="141.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/sushi/tempura.png" />
+                        <Image url="@../../../resources/sushi/tempura.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="shrimp" fitHeight="150.0" fitWidth="200.0" layoutX="417.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="shrimp" fitHeight="150.0" fitWidth="200.0" layoutX="417.0" layoutY="135.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/sushi/shrimp.png" />
+                        <Image url="@../../../resources/sushi/shrimp.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="gyoza" fitHeight="150.0" fitWidth="200.0" layoutX="217.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="gyoza" fitHeight="150.0" fitWidth="200.0" layoutX="217.0" layoutY="141.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/sushi/gyoza.png" />
+                        <Image url="@../../../resources/sushi/gyoza.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="frice" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="frice" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="1.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/sushi/frice.png" />
+                        <Image url="@../../../resources/sushi/frice.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="maki" fitHeight="150.0" fitWidth="200.0" layoutX="217.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="maki" fitHeight="150.0" fitWidth="200.0" layoutX="217.0" layoutY="9.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/sushi/maki.png" />
+                        <Image url="@../../../resources/sushi/maki.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="noodles" fitHeight="150.0" fitWidth="200.0" layoutX="467.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="noodles" fitHeight="150.0" fitWidth="200.0" layoutX="467.0" layoutY="1.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/sushi/noodles.png" />
+                        <Image url="@../../../resources/sushi/noodles.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="nigiri" fitHeight="150.0" fitWidth="200.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="nigiri" fitHeight="150.0" fitWidth="200.0" layoutY="142.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/sushi/nigiri.png" />
+                        <Image url="@../../../resources/sushi/nigiri.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="uramaki" fitHeight="150.0" fitWidth="200.0" layoutX="242.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="uramaki" fitHeight="150.0" fitWidth="200.0" layoutX="242.0" layoutY="133.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/sushi/uramaki.png" />
+                        <Image url="@../../../resources/sushi/uramaki.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="teriyaki" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="teriyaki" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="283.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/sushi/teriyaki.png" />
+                        <Image url="@../../../resources/sushi/teriyaki.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="temaki" fitHeight="150.0" fitWidth="200.0" layoutX="428.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="temaki" fitHeight="150.0" fitWidth="200.0" layoutX="428.0" layoutY="141.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../imgs/sushi/temaki.png" />
+                        <Image url="@../../../resources/sushi/temaki.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="acqua" fitHeight="126.0" fitWidth="133.0" layoutX="37.0" layoutY="12.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../resources/sushi/acqua.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="coca" fitHeight="198.0" fitWidth="200.0" layoutX="221.0" layoutY="-21.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../resources/sushi/coca.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="sprite" fitHeight="150.0" fitWidth="200.0" layoutX="56.0" layoutY="177.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../resources/sushi/sprite.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="fanta" fitHeight="128.0" fitWidth="120.0" layoutX="482.0" layoutY="16.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../resources/sushi/fanta.png" />
                      </image>
                   </ImageView>
                </children>
