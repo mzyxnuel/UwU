@@ -9,11 +9,13 @@ public class Request implements Serializable {
     
     public Request(Method method, String clientID, Order order) {
         this.method = method;
+        this.clientID = clientID;
         this.order = order;
     }
 
-    public Request(Method method) {
+    public Request(Method method, String clientID) {
         this.method = method;
+        this.clientID = clientID;
     }
 
     public Method getMethod() {

@@ -27,7 +27,7 @@ public class SideWorker extends Thread {
 			this.conn = conn;
 			input = new ObjectInputStream(conn.getInputStream());
 			output = new ObjectOutputStream(conn.getOutputStream());
-            request = new Request(null);
+            request = new Request(null, null);
             System.out.println("[server]: connection requested from: "+ conn.getInetAddress().toString() + ":" + conn.getPort());
 			start();
 		} catch (IOException e) { e.printStackTrace(); }

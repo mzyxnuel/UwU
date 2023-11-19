@@ -1,3 +1,4 @@
+package main;
 import control.server.ServerController;
 
 public class ServerMain {

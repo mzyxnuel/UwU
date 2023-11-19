@@ -1,5 +1,6 @@
-package application;
-	
+package view.client;
+
+import control.client.ClientController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -14,10 +15,13 @@ import javafx.scene.Parent;
 
 
 public class Main extends Application {
+	private static ClientController client;
+	private static String clientID; 
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("prova.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -30,6 +34,8 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+		client = new ClientController();
+		clientID = client.getClientID();
 		launch(args);
 	}
 }
