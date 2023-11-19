@@ -37,7 +37,7 @@ public class SideWorker extends Thread {
         try {
             do {
                 request = (Request) input.readObject();
-                System.out.println("[server]: new request: " + request.getMethod() + ": " +request.getOrder().toString());
+                System.out.println("[server]: new request: " + request.getMethod() + ": " + request.getOrder().toString());
 
                 switch (request.getMethod()) {
                     case ADD:
