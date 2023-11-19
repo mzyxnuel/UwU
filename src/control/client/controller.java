@@ -109,7 +109,7 @@ public class controller {
 	            changeImages(primiImages);
 	        
 	    }
-	    
+	   
 	    private void changeImages(List<ImageView> newImages) {
 	        // Nasconde le immagini attuali solo se non sono null
 	        antipastiImages.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
@@ -240,12 +240,13 @@ public class controller {
 		 stage.show();
 	}
 	
-public void switchScenaPrincipale(ActionEvent event) throws IOException{
-		 root = FXMLLoader.load(getClass().getResource("prova.fxml"));
-		 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		 scene = new Scene(root);
-		 stage.setScene(scene);
-		 stage.setResizable(false);
-		 stage.show();
-}
+	public void switchScenaPrincipale(ActionEvent event) throws IOException{
+			 root = FXMLLoader.load(getClass().getResource("prova.fxml"));
+			 stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			 scene = new Scene(root);
+			 stage.setScene(scene);
+			 stage.setResizable(false);
+			 stage.show();
+	}
+
 }
