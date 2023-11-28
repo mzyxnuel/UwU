@@ -1,4 +1,4 @@
-package control.client;
+package uwu.control.client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -7,9 +7,9 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.UUID;
 
-import model.Method;
-import model.Request;
-import model.Response;
+import uwu.model.Method;
+import uwu.model.Request;
+import uwu.model.Response;
 
 public class ClientController extends Thread {
     private Socket conn = null;
@@ -23,7 +23,6 @@ public class ClientController extends Thread {
 		try {
             output = new ObjectOutputStream(conn.getOutputStream());
             input = new ObjectInputStream(conn.getInputStream());
-            response = new Response(null);
         } catch (Exception e) { e.printStackTrace(); } 
         start();
 	}

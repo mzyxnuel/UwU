@@ -1,14 +1,14 @@
-package control.server;
+package uwu.control.server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import model.Method;
-import model.Orders;
-import model.Request;
-import model.Response;
+import uwu.model.Method;
+import uwu.model.Orders;
+import uwu.model.Request;
+import uwu.model.Response;
 
 public class SideWorker extends Thread {
     private Socket conn;
@@ -27,7 +27,6 @@ public class SideWorker extends Thread {
 			this.conn = conn;
 			input = new ObjectInputStream(conn.getInputStream());
 			output = new ObjectOutputStream(conn.getOutputStream());
-            request = new Request(null, null);
             System.out.println("[server]: connection requested from: "+ conn.getInetAddress().toString() + ":" + conn.getPort());
 			start();
 		} catch (IOException e) { e.printStackTrace(); }

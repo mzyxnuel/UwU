@@ -1,4 +1,4 @@
-package model;
+package uwu.model;
 
 public enum Method {
     ADD,

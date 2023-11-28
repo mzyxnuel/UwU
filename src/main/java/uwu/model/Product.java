@@ -1,6 +1,8 @@
-package model;
+package uwu.model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String name;
     private int qty;
     
@@ -24,4 +26,9 @@ public class Product {
     public void setQty(int qty) {
         this.qty = qty;
     }    
+
+    @Override
+    public String toString() {
+        return "[name=" + name + ", qty=" + qty + "]";
+    }
 }

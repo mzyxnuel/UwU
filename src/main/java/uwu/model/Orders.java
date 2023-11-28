@@ -1,4 +1,4 @@
-package model;
+package uwu.model;
 
 import java.util.HashMap;
 

@@ -1,10 +1,10 @@
-package control.server;
+package uwu.control.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import model.Orders;
+import uwu.model.Orders;
 
 public class ServerController extends Thread {
     private ServerSocket server; 
