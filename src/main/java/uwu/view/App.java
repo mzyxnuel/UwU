@@ -38,6 +38,7 @@ public class App extends Application {
     private static String clientID;
     private static final int ITEMS_PER_ROW = 3;
     private boolean isCartVisible = false;
+    private List<ImageView> cartImages = new ArrayList<>();
     @FXML
     private FlowPane flowPane;
 
@@ -149,17 +150,13 @@ public class App extends Application {
         Order order = new Order();
         order.setName(fileNameWithoutExtension);
 
-        
-    
         if (cart.isEmpty()) {
             client.sendRequest(new Request(Method.ADD, clientID, order));
             addToCart(image);
         } else {
             client.sendRequest(new Request(Method.UPDATE, clientID, order));
         }
-        addToCart(image);
     }
-    
 
     @FXML
     private void onAntipastiButtonClick() {
@@ -189,19 +186,25 @@ public class App extends Application {
 
 
 
-   private void addToCart(ImageView imageView) {
-
+    @FXML
+private void addToCart(ImageView imageView) {
+    if (imageView != null && !cart.contains(imageView)) {
         cart.add(imageView);
+        // Aggiungi questa immagine alla lista specifica per il carrello solo se è diversa da null
+        cartImages.add(imageView);
     }
+}
+
+    
     private void changeImages(List<ImageView> images, boolean isCart) {
         if (isCart) {
             int rowIndex = 0;
             int colIndex = 0;
             for (ImageView imageView : images) {
                 imageView.setVisible(true);
-
-                imageView.setLayoutX(colIndex * 100); 
-                imageView.setLayoutY(rowIndex * 100); 
+    
+                imageView.setLayoutX(colIndex * 100);
+                imageView.setLayoutY(rowIndex * 100);
     
                 colIndex++;
                 if (colIndex >= ITEMS_PER_ROW) {
@@ -210,13 +213,12 @@ public class App extends Application {
                 }
             }
         } else {
-            antipastiImages.stream().filter(imageView -> imageView != null)
-                    .forEach(imageView -> imageView.setVisible(false));
-            primiImages.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
-            bevande.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
-            cart.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
+            antipastiImages.forEach(imageView -> imageView.setVisible(false));
+            primiImages.forEach(imageView -> imageView.setVisible(false));
+            bevande.forEach(imageView -> imageView.setVisible(false));
+            cart.forEach(imageView -> imageView.setVisible(false));
     
-            images.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(true));
+            images.forEach(imageView -> imageView.setVisible(true));
         }
     }
 
