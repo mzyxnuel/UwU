@@ -10,7 +10,7 @@ import uwu.model.Request;
 import uwu.view.App;
 
 public class AppMain {
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
         App.main(args);
     }
 }

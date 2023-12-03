@@ -6,24 +6,23 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="843.0" style="-fx-background-color: #211f21;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uwu.view.App">
    <children>
-      <BorderPane prefHeight="532.0" prefWidth="835.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="4.0" prefHeight="532.0" prefWidth="835.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="0.0">
          <top>
             <AnchorPane prefHeight="75.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="44.0" fitWidth="71.0" layoutX="14.0" layoutY="29.0" onMouseClicked="#onMenuButtonClick" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="44.0" fitWidth="71.0" layoutX="25.0" layoutY="29.0" onMouseClicked="#onMenuButtonClick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@resources/graphic/menu.png" />
                      </image>
                   </ImageView>
-                  <Pane layoutX="-14.0" prefHeight="29.0" prefWidth="858.0" style="-fx-background-color: #96180f;" AnchorPane.leftAnchor="-14.0" AnchorPane.rightAnchor="-9.0" AnchorPane.topAnchor="0.0" />
-                  <Button layoutX="58.0" layoutY="31.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" style="-fx-background-color: #211f21; -fx-text-fill: white;" text="MENU">
+                  <Pane layoutX="-14.0" prefHeight="29.0" prefWidth="853.0" style="-fx-background-color: #96180f;" AnchorPane.leftAnchor="-14.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0" />
+                  <Button layoutX="70.0" layoutY="31.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" style="-fx-background-color: #211f21; -fx-text-fill: white;" text="MENU">
                      <font>
                         <Font name="Baskerville Old Face" size="21.0" />
                      </font></Button>
@@ -55,11 +54,6 @@
                               <Font name="Baskerville Old Face" size="20.0" />
                            </font>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#onCartButtonClick" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="Carrello">
-                           <font>
-                              <Font name="Baskerville Old Face" size="20.0" />
-                           </font>
-                        </Button>
                         <Button mnemonicParsing="false" onAction="#switchScenaPrincipale" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="Torna al Menu">
                            <font>
                               <Font name="Baskerville Old Face" size="20.0" />
@@ -74,7 +68,6 @@
             </AnchorPane>
          </left>
          <center>
-         <FlowPane fx:id="flowPane">
             <AnchorPane fx:id="idMenuPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fx:id="baozi" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
@@ -164,7 +157,6 @@
                   </ImageView>
                </children>
             </AnchorPane>
-         </FlowPane>
          </center>
       </BorderPane>
    </children>

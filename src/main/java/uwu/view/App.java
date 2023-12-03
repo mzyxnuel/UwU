@@ -2,11 +2,8 @@ package uwu.view;
 
 import javafx.scene.input.MouseEvent;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import uwu.control.client.ClientController;
@@ -16,7 +13,6 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
-import javafx.css.Styleable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,20 +24,21 @@ import uwu.model.Request;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 
 public class App extends Application {
     private static ClientController client;
     private static String clientID;
     private static final int ITEMS_PER_ROW = 3;
-    private boolean isCartVisible = false;
-    private List<ImageView> cartImages = new ArrayList<>();
     @FXML
-    private FlowPane flowPane;
+    private AnchorPane idMenuPane;
 
+    @FXML
+    private ScrollPane idMenuScrollPane;
+    private List<Request> accumulatedUpdates = new ArrayList<>();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -105,7 +102,6 @@ public class App extends Application {
     private List<ImageView> primiImages;
     private List<ImageView> bevande;
     private List<ImageView> cart = new ArrayList<>();
-    private boolean carrello = false;
 
     @Override
     public void start(Stage primaryStage) {
@@ -136,92 +132,84 @@ public class App extends Application {
         primiImages = Arrays.asList(frice, maki, nigiri, noodles, uramaki, temaki, teriyaki);
         bevande = Arrays.asList(acqua, fanta, coca, sprite);
         cart = new ArrayList<>();
-        changeImages(antipastiImages,false);
+        changeImages(antipastiImages);
 
     }
 
     @FXML
     private void immagineCliccata(MouseEvent event) {
-        int index = 0;
         ImageView image = (ImageView) event.getSource();
         String imageUrl = image.getImage().getUrl();
         String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
         String fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
+        Product product = new Product(fileNameWithoutExtension, 1);
         Order order = new Order();
-        order.setName(fileNameWithoutExtension);
-
+        order.add(product);
+    
+        // Creare una nuova richiesta
+        Request request;
         if (cart.isEmpty()) {
-            client.sendRequest(new Request(Method.ADD, clientID, order));
-            addToCart(image);
+            request = new Request(Method.ADD, clientID, order);
         } else {
-            client.sendRequest(new Request(Method.UPDATE, clientID, order));
+            if (accumulatedUpdates.isEmpty()) {
+                // Invia la richiesta di tipo "UPDATE" solo se la lista è vuota
+                request = new Request(Method.UPDATE, clientID, order);
+            } else {
+                accumulatedUpdates.add(new Request(Method.UPDATE, clientID, order));
+                return;  // Non inviare immediatamente, attendi la prossima azione dell'utente
+            }
         }
+    
+        // Invia la richiesta al server
+        synchronized (client) {
+            client.sendRequest(request);
+        }
+    
+        // Invia le richieste UPDATE accumulate
+        synchronized (client) {
+            for (Request updateRequest : accumulatedUpdates) {
+                client.sendRequest(updateRequest);
+            }
+            accumulatedUpdates.clear();  // Pulisci la lista dopo l'invio
+        }
+    
+        addToCart(image);
     }
 
     @FXML
     private void onAntipastiButtonClick() {
-        changeImages(antipastiImages,false);
-        isCartVisible = false;
+
+        changeImages(antipastiImages);
+
     }
 
     @FXML
     private void onPrimiButtonClick() {
-        changeImages(primiImages,false);
-        isCartVisible = false;
+
+        changeImages(primiImages);
+
     }
 
     @FXML
     private void onBevandeButtonClick() {
-        changeImages(bevande,false);
-        isCartVisible = true;
+
+        changeImages(bevande);
     }
 
-    
-
-    @FXML
-    private void onCartButtonClick() {
-        changeImages(cart,true);
-        isCartVisible = true;
-    }
-
-
-
-    @FXML
-private void addToCart(ImageView imageView) {
-    if (imageView != null && !cart.contains(imageView)) {
+   
+    private void addToCart(ImageView imageView) {
+        menuPane.getChildren().remove(imageView);
         cart.add(imageView);
-        // Aggiungi questa immagine alla lista specifica per il carrello solo se è diversa da null
-        cartImages.add(imageView);
-    }
-}
-
+       }
+    private void changeImages(List<ImageView> images) {
+   
+            antipastiImages.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
+            primiImages.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
+            bevande.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
+            cart.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
     
-    private void changeImages(List<ImageView> images, boolean isCart) {
-        if (isCart) {
-            int rowIndex = 0;
-            int colIndex = 0;
-            for (ImageView imageView : images) {
-                imageView.setVisible(true);
-    
-                imageView.setLayoutX(colIndex * 100);
-                imageView.setLayoutY(rowIndex * 100);
-    
-                colIndex++;
-                if (colIndex >= ITEMS_PER_ROW) {
-                    colIndex = 0;
-                    rowIndex++;
-                }
-            }
-        } else {
-            antipastiImages.forEach(imageView -> imageView.setVisible(false));
-            primiImages.forEach(imageView -> imageView.setVisible(false));
-            bevande.forEach(imageView -> imageView.setVisible(false));
-            cart.forEach(imageView -> imageView.setVisible(false));
-    
-            images.forEach(imageView -> imageView.setVisible(true));
+            images.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(true));
         }
-    }
-
     @FXML
     private void onMenuButtonClick() {
         if (!isMenuVisible) {
@@ -345,11 +333,13 @@ private void addToCart(ImageView imageView) {
     }
 
     public void switchScenaPrincipale(ActionEvent event) throws IOException {
+        Order order = new Order();
         root = FXMLLoader.load(getClass().getResource("main.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        client.sendRequest(new Request(Method.END, clientID, order));
     }
 }
