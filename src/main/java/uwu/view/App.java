@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 
 import uwu.control.client.ClientController;
 import uwu.model.Method;
@@ -33,12 +31,13 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.Pane;
 
 public class App extends Application {
     private static ClientController client;
     private static String clientID;
-
+    private static final int ITEMS_PER_ROW = 3;
+    private boolean isCartVisible = false;
     @FXML
     private FlowPane flowPane;
 
@@ -136,73 +135,89 @@ public class App extends Application {
         primiImages = Arrays.asList(frice, maki, nigiri, noodles, uramaki, temaki, teriyaki);
         bevande = Arrays.asList(acqua, fanta, coca, sprite);
         cart = new ArrayList<>();
-        changeImages(antipastiImages);
+        changeImages(antipastiImages,false);
 
     }
 
     @FXML
     private void immagineCliccata(MouseEvent event) {
+        int index = 0;
         ImageView image = (ImageView) event.getSource();
         String imageUrl = image.getImage().getUrl();
         String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
         String fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
         Order order = new Order();
-
         order.setName(fileNameWithoutExtension);
 
-        if (carrello == false) {
+        
+    
+        if (cart.isEmpty()) {
             client.sendRequest(new Request(Method.ADD, clientID, order));
-            carrello = true;
+            addToCart(image);
         } else {
-            if (!cart.contains(image)) {
-                client.sendRequest(new Request(Method.UPDATE, clientID, order));
-            }
+            client.sendRequest(new Request(Method.UPDATE, clientID, order));
         }
-        cart.add(image);
+        addToCart(image);
     }
+    
 
     @FXML
     private void onAntipastiButtonClick() {
-
-        changeImages(antipastiImages);
-
+        changeImages(antipastiImages,false);
+        isCartVisible = false;
     }
 
     @FXML
     private void onPrimiButtonClick() {
-
-        changeImages(primiImages);
-
+        changeImages(primiImages,false);
+        isCartVisible = false;
     }
 
     @FXML
     private void onBevandeButtonClick() {
-
-        changeImages(bevande);
-
+        changeImages(bevande,false);
+        isCartVisible = true;
     }
+
+    
 
     @FXML
     private void onCartButtonClick() {
-
-        List<ImageView> images = new ArrayList<>();
-
-        for (ImageView image : images) {
-            image.setOnMouseClicked(null);
-        }
-        changeImages(cart);
-
+        changeImages(cart,true);
+        isCartVisible = true;
     }
 
-    private void changeImages(List<ImageView> newImages) {
 
-        antipastiImages.stream().filter(imageView -> imageView != null)
-                .forEach(imageView -> imageView.setVisible(false));
-        primiImages.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
-        bevande.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
-        cart.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
 
-        newImages.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(true));
+   private void addToCart(ImageView imageView) {
+
+        cart.add(imageView);
+    }
+    private void changeImages(List<ImageView> images, boolean isCart) {
+        if (isCart) {
+            int rowIndex = 0;
+            int colIndex = 0;
+            for (ImageView imageView : images) {
+                imageView.setVisible(true);
+
+                imageView.setLayoutX(colIndex * 100); 
+                imageView.setLayoutY(rowIndex * 100); 
+    
+                colIndex++;
+                if (colIndex >= ITEMS_PER_ROW) {
+                    colIndex = 0;
+                    rowIndex++;
+                }
+            }
+        } else {
+            antipastiImages.stream().filter(imageView -> imageView != null)
+                    .forEach(imageView -> imageView.setVisible(false));
+            primiImages.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
+            bevande.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
+            cart.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
+    
+            images.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(true));
+        }
     }
 
     @FXML

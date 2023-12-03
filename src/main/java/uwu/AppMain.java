@@ -11,8 +11,6 @@ import uwu.view.App;
 
 public class AppMain {
     public static void main(String[] args) {
-        ClientController client = new ClientController();
-        Order<Product> test = new Order<Product>(); 
         App.main(args);
     }
 }

@@ -26,7 +26,7 @@
       </Button>
       <ImageView fitHeight="287.0" fitWidth="297.0" layoutX="142.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../graphic/sushi.png" />
+            <Image url="@resources\graphic\sushi.png" />
          </image>
       </ImageView>
    </children>
