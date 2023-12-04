@@ -61,7 +61,7 @@ public class SideWorker extends Thread {
         } catch (IOException e) { 
             System.out.println("[server]: client unexpectedly disconnected"); 
         } catch (ClassNotFoundException e) {
-            System.out.println("[server]: corrupted class readed from client!");
+            System.out.println("[server]: corrupted class read from client!");
         } catch (Exception e) {
             e.printStackTrace();
         }

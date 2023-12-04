@@ -4,6 +4,7 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import uwu.control.client.ClientController;
@@ -25,20 +26,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class App extends Application {
     private static ClientController client;
     private static String clientID;
-    private static final int ITEMS_PER_ROW = 3;
     @FXML
     private AnchorPane idMenuPane;
 
     @FXML
     private ScrollPane idMenuScrollPane;
-    private List<Request> accumulatedUpdates = new ArrayList<>();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -102,6 +100,7 @@ public class App extends Application {
     private List<ImageView> primiImages;
     private List<ImageView> bevande;
     private List<ImageView> cart = new ArrayList<>();
+    private Order order = new Order();
 
     @Override
     public void start(Stage primaryStage) {
@@ -112,6 +111,10 @@ public class App extends Application {
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
             primaryStage.show();
+
+            primaryStage.setOnCloseRequest(e -> {
+                undoOrder();
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -135,7 +138,6 @@ public class App extends Application {
         changeImages(antipastiImages);
 
     }
-
     @FXML
     private void immagineCliccata(MouseEvent event) {
         ImageView image = (ImageView) event.getSource();
@@ -143,39 +145,10 @@ public class App extends Application {
         String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
         String fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
         Product product = new Product(fileNameWithoutExtension, 1);
-        Order order = new Order();
         order.add(product);
-    
-        // Creare una nuova richiesta
-        Request request;
-        if (cart.isEmpty()) {
-            request = new Request(Method.ADD, clientID, order);
-        } else {
-            if (accumulatedUpdates.isEmpty()) {
-                // Invia la richiesta di tipo "UPDATE" solo se la lista è vuota
-                request = new Request(Method.UPDATE, clientID, order);
-            } else {
-                accumulatedUpdates.add(new Request(Method.UPDATE, clientID, order));
-                return;  // Non inviare immediatamente, attendi la prossima azione dell'utente
-            }
-        }
-    
-        // Invia la richiesta al server
-        synchronized (client) {
-            client.sendRequest(request);
-        }
-    
-        // Invia le richieste UPDATE accumulate
-        synchronized (client) {
-            for (Request updateRequest : accumulatedUpdates) {
-                client.sendRequest(updateRequest);
-            }
-            accumulatedUpdates.clear();  // Pulisci la lista dopo l'invio
-        }
     
         addToCart(image);
     }
-
     @FXML
     private void onAntipastiButtonClick() {
 
@@ -206,7 +179,6 @@ public class App extends Application {
             antipastiImages.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
             primiImages.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
             bevande.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
-            cart.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
     
             images.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(true));
         }
@@ -332,14 +304,21 @@ public class App extends Application {
         stage.show();
     }
 
+    public void undoOrder(){
+        Order empty = new Order();
+        client.sendRequest(new Request(Method.END, clientID, empty));
+    }
+
     public void switchScenaPrincipale(ActionEvent event) throws IOException {
-        Order order = new Order();
+        Order empty = new Order();
         root = FXMLLoader.load(getClass().getResource("main.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-        client.sendRequest(new Request(Method.END, clientID, order));
+        
+        client.sendRequest(new Request(Method.ADD, clientID, order));
+        client.sendRequest(new Request(Method.END, clientID, empty));
     }
 }
