@@ -34,34 +34,29 @@
                <children>
                   <VBox layoutY="13.0" prefHeight="37.0" prefWidth="202.0" AnchorPane.bottomAnchor="199.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="13.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="237.0" style="-fx-background-color: #96180f; -fx-border-top-color: black;" text="UWU">
-                           <font>
-                              <Font name="Baskerville Old Face" size="20.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#onAntipastiButtonClick" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f; -fx-border-top-color: black;" text="Antipasti">
-                           <font>
-                              <Font name="Baskerville Old Face" size="20.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#onPrimiButtonClick" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="Primi">
-                           <font>
-                              <Font name="Baskerville Old Face" size="20.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#onBevandeButtonClick" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="Bevande">
+                        <Button mnemonicParsing="false" onAction="#onAntipastiButtonClick" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f; -fx-border-top-color: black;" text="Snacks">
                            <font>
                               <Font name="Baskerville Old Face" size="20.0" />
                            </font>
                         </Button>
                      </children>
                   </VBox>
-                  <Button layoutX="1.0" layoutY="163.0" mnemonicParsing="false" onAction="#undoOrder" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="Annulla Ordinazione">
+                  <Button layoutX="1.0" layoutY="151.0" mnemonicParsing="false" onAction="#undoOrder" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="Undo order">
                      <font>
                         <Font name="Baskerville Old Face" size="20.0" />
                      </font>
                   </Button>
-                  <Button layoutX="1.0" layoutY="202.0" mnemonicParsing="false" onAction="#switchScenaPrincipale" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="Fine Ordinazione">
+                  <Button layoutX="1.0" layoutY="202.0" mnemonicParsing="false" onAction="#switchScenaPrincipale" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="End order">
+                     <font>
+                        <Font name="Baskerville Old Face" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="1.0" layoutY="100.0" mnemonicParsing="false" onAction="#onBevandeButtonClick" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="Drinks">
+                     <font>
+                        <Font name="Baskerville Old Face" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="1.0" layoutY="56.0" mnemonicParsing="false" onAction="#onPrimiButtonClick" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #96180f;" text="Sushi">
                      <font>
                         <Font name="Baskerville Old Face" size="20.0" />
                      </font>
@@ -150,7 +145,7 @@
                         <Image url="@resources/sushi/coca.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="sprite" fitHeight="150.0" fitWidth="200.0" layoutX="56.0" layoutY="177.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="sprite" fitHeight="150.0" fitWidth="200.0" layoutX="56.0" layoutY="142.0" onMouseClicked="#immagineCliccata" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@resources/sushi/sprite.png" />
                      </image>

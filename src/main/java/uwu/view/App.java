@@ -4,7 +4,6 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import uwu.control.client.ClientController;
@@ -138,6 +137,7 @@ public class App extends Application {
         changeImages(antipastiImages);
 
     }
+
     @FXML
     private void immagineCliccata(MouseEvent event) {
         ImageView image = (ImageView) event.getSource();
@@ -146,9 +146,10 @@ public class App extends Application {
         String fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
         Product product = new Product(fileNameWithoutExtension, 1);
         order.add(product);
-    
+
         addToCart(image);
     }
+
     @FXML
     private void onAntipastiButtonClick() {
 
@@ -169,19 +170,21 @@ public class App extends Application {
         changeImages(bevande);
     }
 
-   
     private void addToCart(ImageView imageView) {
         menuPane.getChildren().remove(imageView);
         cart.add(imageView);
-       }
+    }
+
     private void changeImages(List<ImageView> images) {
-   
-            antipastiImages.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
-            primiImages.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
-            bevande.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
-    
-            images.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(true));
-        }
+
+        antipastiImages.stream().filter(imageView -> imageView != null)
+                .forEach(imageView -> imageView.setVisible(false));
+        primiImages.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
+        bevande.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(false));
+
+        images.stream().filter(imageView -> imageView != null).forEach(imageView -> imageView.setVisible(true));
+    }
+
     @FXML
     private void onMenuButtonClick() {
         if (!isMenuVisible) {
@@ -304,21 +307,19 @@ public class App extends Application {
         stage.show();
     }
 
-    public void undoOrder(){
+    public void undoOrder() {
         Order empty = new Order();
         client.sendRequest(new Request(Method.END, clientID, empty));
     }
 
     public void switchScenaPrincipale(ActionEvent event) throws IOException {
-        Order empty = new Order();
         root = FXMLLoader.load(getClass().getResource("main.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-        
+
         client.sendRequest(new Request(Method.ADD, clientID, order));
-        client.sendRequest(new Request(Method.END, clientID, empty));
     }
 }
