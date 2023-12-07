@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="513.0" prefWidth="858.0" style="-fx-background-color: #211f21;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uwu.view.App">
+   <children>
+      <Label layoutX="429.0" layoutY="145.0" prefHeight="41.0" prefWidth="246.0" text="UWU" textFill="WHITE">
+         <font>
+            <Font name="Baskerville Old Face" size="96.0" />
+         </font>
+      </Label>
+      <Label layoutX="458.0" layoutY="257.0" prefHeight="37.0" prefWidth="188.0" text="Sushi &amp; Lounge" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Baskerville Old Face" size="29.0" />
+         </font>
+      </Label>
+      <Button layoutX="328.0" layoutY="374.0" mnemonicParsing="false" onAction="#switchSecondaScena" prefHeight="72.0" prefWidth="202.0" stylesheets="@application.css" text="Order" textOverrun="CLIP">
+         <font>
+            <Font name="Baskerville Old Face" size="31.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="287.0" fitWidth="297.0" layoutX="142.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/graphic/sushi.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
